@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta charset="UTF-8">
+        <title></title>
+
+        <style type="text/css">
+            form
+            {
+                width:100%;
+                height:100%;
+
+                background:#008B8B;
+            }
+            div
+            {
+                display:inline-block;
+                padding-top: 170px;
+                padding-bottom: 170px;
+				padding-left: 1px;
+				padding-right: 1px;
+            }
+            h2
+            {
+                font-family: "微软雅黑";
+            font-size: 40px;
+                color:black;
+            }
+            #log
+            {
+                color:blue;
+            }
+        </style>
+    </head>
+    <body>
+		<!--div class="div">
+			<img src="favicon.png" width="100%" height="200px" alt=""  id="picture">
+		</div-->
+        <form name="do_change" action="{{ url_for('do_change') }}" method="POST" onsubmit="return judge()">
+            <center>
+            <div>
+            <h2>
+                修改密码
+            </h2>
+             <p>
+                手机号：<input type="text" id = "ph_one" name="ph_one" value="{{ph_one}}"/>
+            </p>
+            <p>
+                新密码：<input type="password" name="new_pass" value=""/>
+            </p>
+            <p>
+                再输入：<input type="password" name="re_new_pass" value=""/>
+            </p>
+
+            <p>
+                <input id='go' type="submit"  value="点击修改" />
+            </p>
+             <p>
+                <a href="{{ url_for('login') }}">点击登录</a>
+            </p>
+                <p>
+                    {{ error }}
+                </p>
+            </div>
+            </center>
+        </form>
+    <script src="/static/judge.js"></script>
+    </body>
+</html>

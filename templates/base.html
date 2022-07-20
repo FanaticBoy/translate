@@ -1,0 +1,37 @@
+<html>
+
+<head>
+
+    <title>
+
+        {% if page_title %}
+
+            {{ page_title }}
+
+        {% endif %}
+
+    </title>
+
+</head>
+
+<!--
+
+在``标签中使用了if判断，如果给模板传递了`page_title`变量，显示之，否则，不显示。
+
+-->
+
+<body>
+
+
+
+{% block body %}
+
+    {% for key in user_info %}
+
+        <p>{{ key }}: {{ user_info[key] }} </p>
+
+
+
+    {% endfor %}
+
+{% endblock %}

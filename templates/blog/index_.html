@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>小利翻译</title>
+     <style type="text/css">
+            form
+            {
+                width:100%;
+                height:100%;
+
+                background:#008B8B;
+            }
+            div
+            {
+                display:inline-block;
+
+				padding-left: 1px;
+				padding-right: 1px;
+            }
+            h2
+            {
+                font-family: "微软雅黑";
+            font-size: 40px;
+                color:black;
+            }
+            #translate
+            {
+                color:blue;
+            }
+        </style>
+</head>
+<body>
+    <form action="{{ url_for('logout') }}" method="get" >
+         <center>
+            终于等到你  {{name}}
+            <input type="submit" value="注销">
+         </center>
+    </form>
+
+
+     <form name="login" action="{{ url_for('do_show') }}" method="post">
+            <center>
+            <div>
+            <h2>
+                翻译
+            </h2>
+            <p>
+                <p>要翻译的文字</p><textarea rows="10" cols="30" name="before" >{{ shuru }}</textarea>
+            </p>
+            <p>
+                <p>翻译的结果为</p><textarea rows="10" cols="30" name="after" >{{ shuchu }}</textarea>
+            </p>
+            <p>
+                <input type="radio" id="option1" name="op"  value="ze">汉译英
+                <input type="radio" id="option2" name="op" checked value="ez">英译汉
+            </p>
+                <p>
+                    {{ error }}
+                </p>
+            <p>
+                <input id=translate type="submit" value="立即翻译" />
+            </p>
+            </div>
+            </center>
+        </form>
+
+
+</body>
+
+
+</html>

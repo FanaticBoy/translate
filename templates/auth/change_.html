@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta charset="UTF-8">
+        <title></title>
+
+        <style type="text/css">
+            form
+            {
+                width:100%;
+                height:100%;
+
+                background:#008B8B;
+            }
+            div
+            {
+                display:inline-block;
+
+				padding-left: 1px;
+				padding-right: 1px;
+            }
+            h2
+            {
+                font-family: "微软雅黑";
+            font-size: 40px;
+                color:black;
+            }
+            #log
+            {
+                color:blue;
+            }
+        </style>
+    </head>
+    <body>
+		<!--div class="div">
+			<img src="favicon.png" width="100%" height="200px" alt=""  id="picture">
+		</div-->
+        <form name="change_" action="{{ url_for('change') }}" method="POST" onsubmit="return judge()">
+            <center>
+            <div>
+            <h2>
+                修改密码
+            </h2>
+            <p>
+                手机号：<input type="text" id = "phone" name="phone" />
+            </p>
+            <p>
+                验证码：<input type="text" name="code" value=""/>
+            </p>
+            <p>
+				<input id="send" type="button" value="发送验证码"  onclick="sendCode(this)"/>
+			</p>
+            <p>
+                <input id='go' type="submit"  value="点击修改" />
+            </p>
+             <p>
+                <a href="{{ url_for('login') }}">点击登录</a>
+            </p>
+                <p>
+                    {{ error }}
+                </p>
+            </div>
+            </center>
+        </form>
+    </body>
+<script type="text/javascript">
+
+			 var clock = '';
+    		 var nums = 60;
+    		 var btn;
+    function sendCode(thisBtn) {
+		if_null = document.getElementById("phone").value;
+		var arr = if_null.split("");
+		var sum = 0;
+		for (var i in arr){
+			if (!isNaN(arr[i]))
+			sum++;
+		}
+		if (sum==11){
+		btn = thisBtn;
+        btn.disabled = true; //将按钮置为不可点
+        btn.value = nums + '秒后可重新获取';
+        clock = setInterval(doLoop, 1000); //一秒执行一次
+		sendAjax()
+		}
+		else{
+			alert("请输入正确手机号格式")
+		}
+
+    }
+
+    function doLoop() {
+        nums--;
+        if (nums > 0) {
+            btn.value = nums + '秒后可重新获取';
+        } else {
+            clearInterval(clock); //清除js定时器
+            btn.disabled = false;
+            btn.value = '点击发送验证码';
+            nums = 60; //重置时间
+        }
+    }
+
+    function sendAjax() {
+  var xhr = new XMLHttpRequest();
+  //创建一个 post 请求，采用异步
+  x = document.getElementById("phone").value;
+  xhr.open('GET', '/do_send?name='+x, false);
+   xhr.send();
+}
+		</script>
+</html>

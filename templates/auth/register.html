@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta charset="UTF-8">
+        <title></title>
+        <style type="text/css">
+            form
+            {
+                width:100%;
+                height:100%;
+
+                background:#008B8B;
+            }
+            div
+            {
+                display:inline-block;
+                padding-top: 175px;
+                padding-bottom: 175px;
+				padding-left: 1px;
+				padding-right: 1px;
+            }
+            h2
+            {
+                font-family: "微软雅黑";
+            font-size: 40px;
+                color:black;
+            }
+            #log
+            {
+                color:blue;
+            }
+        </style>
+    </head>
+    <body>
+        <form name="register" action="{{ url_for('do_register') }}" method="post">
+		    <center>
+            <div>
+            <h3>
+            注册
+			</h3>
+			<p>
+				手机号：<input type="text" id="phone_number"  name="user"/>
+			</p>
+			<p>
+				验证码：<input type="text"  name="check_code"/>
+			</p>
+				<input id="send" type="button" value="发送验证码"  onclick="sendCode(this)"/>
+			<p>
+				密&emsp;码：<input type="password" name="pass"/>
+			</p>
+		<p>
+				再输入：<input type="password" name="repass"/>
+		</p>
+			<p>
+				<input id=reg type="submit" value="立即注册" />
+			</p>
+				<p>
+                    {{ re_error }}
+                </p>
+			<p>
+				已有账号？<a href='{{ url_for("login") }}'>请登录</a>
+			</p>
+            </div>
+            </center>
+        </form>
+    </body>
+<script type="text/javascript">
+
+			 var clock = '';
+    		 var nums = 60;
+    		 var btn;
+    function sendCode(thisBtn) {
+		if_null = document.getElementById("phone_number").value;
+		var arr = if_null.split("");
+		var sum = 0;
+		for (var i in arr){
+			if (!isNaN(arr[i]))
+			sum++;
+		}
+		if (sum==11){
+		btn = thisBtn;
+        btn.disabled = true; //将按钮置为不可点
+        btn.value = nums + '秒后可重新获取';
+        clock = setInterval(doLoop, 1000); //一秒执行一次
+		sendAjax()
+		}
+		else{
+			alert("请输入正确手机号格式")
+		}
+
+    }
+
+    function doLoop() {
+        nums--;
+        if (nums > 0) {
+            btn.value = nums + '秒后可重新获取';
+        } else {
+            clearInterval(clock); //清除js定时器
+            btn.disabled = false;
+            btn.value = '点击发送验证码';
+            nums = 60; //重置时间
+        }
+    }
+
+    function sendAjax() {
+  var xhr = new XMLHttpRequest();
+  //创建一个 post 请求，采用异步
+  x = document.getElementById("phone_number").value;
+  xhr.open('GET', '/do_send?name='+x, false);
+   xhr.send();
+}
+		</script>
+</html>
