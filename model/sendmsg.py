@@ -17,7 +17,8 @@ class Send:
 
     def sendMessage(self):
         try:
-            cred = credential.Credential("AKID2vb3GDz2sVv99uPfgU5S5TbVDj4A3jBP", "5xb1BIRYdYJsJcjdJxb8SdeS4SbYHxTl")
+            # 这部分做修改，自己的appid和appkey
+            cred = credential.Credential("appid", "appkey")
             client = sms_client.SmsClient(cred, "ap-guangzhou")
             req = models.SendSmsRequest()
             req.SmsSdkAppid = "1400653965"
